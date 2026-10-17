@@ -1,0 +1,6 @@
+# Local override: gives windows two toolchain lanes (vs2022/gcc).
+c_compiler:
+  - if: not unix and x86_64
+    then:
+      - vs2022
+      - gcc
