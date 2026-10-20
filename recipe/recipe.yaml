@@ -1,6 +1,7 @@
 context:
   version: "2.1.1"
-  build_number: 2
+  # experimental branch: main's build number + 100
+  build_number: 102
 
   # ELF machine token `file` prints for the target; checked by the arch test
   elf_arch: ${{ "x86-64" if target_platform == "linux-64" else "aarch64" if target_platform == "linux-aarch64" else "PowerPC" if target_platform == "linux-ppc64le" else "RISC-V" if target_platform == "linux-riscv64" else "S/390" if target_platform == "linux-s390x" else "" }}
