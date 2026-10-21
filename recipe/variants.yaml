@@ -15,4 +15,4 @@ channel_targets:
   - conda-forge ocaml_experimental
 
 ocaml_compiler_version:
-  - 5.4.1
+  - 5.5.1
