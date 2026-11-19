@@ -1,18 +1,18 @@
-# Local override: gives windows x86_64 two toolchain lanes (vs2022/gcc) and win-arm64 a zig lane.
+# Local override: gives windows x86_64 two toolchain lanes (vs/gcc) and win-arm64 a zig lane.
 c_compiler:
   - if: not unix and x86_64
     then:
-      - vs2022
+      - vs
       - gcc
   - if: not unix and arm64
     then:
       - zig
 
-# experimental branch: build against and publish to the ocaml_experimental label
+# experimental branch: build against and publish to the ocaml_vs label
 channel_sources:
-  - conda-forge/label/ocaml_experimental,conda-forge
+  - conda-forge/label/ocaml_vs,conda-forge
 channel_targets:
-  - conda-forge ocaml_experimental
+  - conda-forge ocaml_vs
 
 ocaml_compiler_version:
-  - 5.5.1
+  - 5.5.2
