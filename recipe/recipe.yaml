@@ -1,10 +1,10 @@
 context:
   version: "2.1.1"
-  build_number: 3
+  build_number: 4
 
   # ELF machine token `file` prints for the target; checked by the arch test
   elf_arch: ${{ "x86-64" if target_platform == "linux-64" else "aarch64" if target_platform == "linux-aarch64" else "PowerPC" if target_platform == "linux-ppc64le" else "RISC-V" if target_platform == "linux-riscv64" else "S/390" if target_platform == "linux-s390x" else "" }}
-  # ocaml_win-64 ships gcc_* and vs2022_* at the same version/build; name the track.
+  # ocaml_win-64 ships gcc_* and vs_* at the same version/build; name the track.
   c_toolchain: ${{ "" if unix else c_compiler ~ "_*" }}
   library: ${{ "Library/" if not unix else "" }}
   m2: ${{ "m2-" if not unix else "" }}
@@ -30,10 +30,11 @@ requirements:
         - ${{ stdlib("m2w64_c") }}
       else:
         - ${{ stdlib("c") }}
-    # ocaml_win-64 >=14 only run-constrains the C compiler; activate it here, once (vs2022, zig)
+    # ocaml_win-64 >=14 only run-constrains the C compiler; activate it here, once (vs, zig).
+    # zig gets its own compiler(): compiler("c") would apply the c_compiler_version meant for vs.
     - if: not unix and c_compiler != "gcc"
       then:
-        - ${{ compiler("c") }}
+        - ${{ compiler("zig") if c_compiler == "zig" else compiler("c") }}
     # compiler("ocaml") renders no toolchain track; name it on windows
     - if: not unix
       then:
